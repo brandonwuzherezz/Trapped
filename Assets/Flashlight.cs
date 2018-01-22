@@ -6,7 +6,7 @@ public class Flashlight : MonoBehaviour
 {
 
     public KeyCode flashlightToggleKey = KeyCode.F;
-    public float batteryLifeInSeconds = 60f;
+    public float batteryLifeInSeconds = 5100f;
 
     public float maxIntensity = 1f;
 
