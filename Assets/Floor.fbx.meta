@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 5545cdcb017e0e94db5a86fb63af4941
-timeCreated: 1516316080
+guid: 52c5656587043ea4d9f1e2a4ad596bba
+timeCreated: 1516670266
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -13,7 +13,6 @@ ModelImporter:
     400002: //RootNode
     400004: Planks
     400006: Sides
-    2100000: PlanksMaterial
     2300000: Base
     2300002: Planks
     2300004: Sides
@@ -24,12 +23,17 @@ ModelImporter:
     4300002: Sides
     4300004: Planks
     9500000: //RootNode
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PlanksMaterial
+    second: {fileID: 2100000, guid: 2f626e40437eb2f4ba4f65fbbb863f7c, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
-    materialLocation: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -67,8 +71,6 @@ ModelImporter:
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
-    preserveHierarchy: 0
-    indexFormat: 0
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88

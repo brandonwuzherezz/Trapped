@@ -42,7 +42,7 @@ public class Player_Movement : MonoBehaviour
             transform.position += transform.forward * Time.deltaTime * 4;
             
             RB.velocity = new Vector2(0, RB.velocity.y);
-            //State = 0;
+            State = 0;
 
         }
         else if (Input.GetKey("s"))
@@ -54,7 +54,7 @@ public class Player_Movement : MonoBehaviour
             RB.velocity = new Vector2(0, RB.velocity.y);
             //State = 1;
         }
-        if(Input.anyKey == false )
+        if(Input.anyKey == false && anim != null)
         {
             State = 0;
             anim.SetInteger("State", State);
