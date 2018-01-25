@@ -8,7 +8,6 @@ public class Flashlight : MonoBehaviour
     public KeyCode flashlightToggleKey = KeyCode.F;
     public float batteryLifeInSeconds = 5f;
 
-    public float maxIntensity = 1f;
 
     private float batteryLife;
     private bool isActive;
@@ -47,8 +46,10 @@ public class Flashlight : MonoBehaviour
 
     public void AddBatteryLife(float _batteryPower)
     {
+        print(_batteryPower);
         myLight.intensity += _batteryPower;
-        if (myLight.intensity > maxIntensity)
-            myLight.intensity = maxIntensity;
+        print(myLight.intensity);
+        if (myLight.intensity > 12)
+            myLight.intensity = 12;
     }
 }
