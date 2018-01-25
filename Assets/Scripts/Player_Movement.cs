@@ -5,8 +5,8 @@ using UnityEngine;
 public class Player_Movement : MonoBehaviour
 {
 
-    public float maxSpeed = 10.0f;
-    bool facingRight = true;
+    public float maxSpeed = 4.0f;
+    bool facingRight = false;
     int State = 0;
 
     Animator anim;
@@ -22,35 +22,35 @@ public class Player_Movement : MonoBehaviour
 
         if(Input.GetKey("a"))
         {
-            State = 3;
-            anim.SetInteger("State", State);
-            transform.position -= transform.right * Time.deltaTime * 4;
+            State = 1;
+            //anim.SetInteger("State", State);
+            transform.position += transform.right * Time.deltaTime * maxSpeed;
             RB.velocity = new Vector3(0, RB.velocity.y, 0);
             
         }
         else if (Input.GetKey("d"))
         {
-            State = 3;
-            anim.SetInteger("State", State);
-            transform.position += transform.right * Time.deltaTime * 4;
+            State = 1;
+            //anim.SetInteger("State", State);
+            transform.position -= transform.right * Time.deltaTime * maxSpeed;
             RB.velocity = new Vector3(0, RB.velocity.y, 0);
         }       
         else if (Input.GetKey("w"))
         {
             State = 2;
             anim.SetInteger("State", State);
-            transform.position += transform.forward * Time.deltaTime * 4;
-            
+            transform.position -= transform.forward * Time.deltaTime * maxSpeed;
+
             RB.velocity = new Vector2(0, RB.velocity.y);
             State = 0;
 
         }
         else if (Input.GetKey("s"))
         {
-            State = 1;
+            State = 3;
             anim.SetInteger("State", State);
-            transform.position -= transform.forward * Time.deltaTime * 4;
-            
+            transform.position += transform.forward * Time.deltaTime * maxSpeed;
+
             RB.velocity = new Vector2(0, RB.velocity.y);
             //State = 1;
         }
@@ -70,7 +70,7 @@ public class Player_Movement : MonoBehaviour
 
         if (anim != null)
         {
-            //anim.SetInteger("State", State);
+            anim.SetInteger("State", State);
         }
         else
         {
