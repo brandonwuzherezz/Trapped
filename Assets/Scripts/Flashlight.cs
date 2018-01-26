@@ -10,9 +10,9 @@ public class Flashlight : MonoBehaviour
 
 
     private float batteryLife;
-    private bool isActive;
+    public bool isActive;
 
-    private Light myLight;
+    public Light myLight;
 
 
 
@@ -36,19 +36,24 @@ public class Flashlight : MonoBehaviour
         if (isActive)
         {
             myLight.enabled = true;
-            myLight.intensity -= 0.01f;
+            myLight.intensity -= 0.1f;
+            if(myLight.intensity <= 0)
+            {
+                isActive = !isActive;
+            }
+
         }
         else
         {
             myLight.enabled = false;
         }
+
+
     }
 
     public void AddBatteryLife(float _batteryPower)
     {
-        print(_batteryPower);
         myLight.intensity += _batteryPower;
-        print(myLight.intensity);
         if (myLight.intensity > 12)
             myLight.intensity = 12;
     }
