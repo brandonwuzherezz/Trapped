@@ -8,6 +8,7 @@ public class Flashlight : MonoBehaviour
     public KeyCode flashlightToggleKey = KeyCode.F;
     public float batteryLifeInSeconds = 5f;
 
+    public float totalBatteries;
 
     private float batteryLife;
     public bool isActive;
@@ -37,9 +38,10 @@ public class Flashlight : MonoBehaviour
         {
             myLight.enabled = true;
             myLight.intensity -= 0.1f;
-            if(myLight.intensity <= 0)
+            if (myLight.intensity <= 0)
             {
                 isActive = !isActive;
+                AddBatteryLife();
             }
 
         }
@@ -51,10 +53,17 @@ public class Flashlight : MonoBehaviour
 
     }
 
-    public void AddBatteryLife(float _batteryPower)
+    public void Collected(int _collected)
     {
-        myLight.intensity += _batteryPower;
-        if (myLight.intensity > 12)
-            myLight.intensity = 12;
+        totalBatteries += _collected;
+    }
+
+    public void AddBatteryLife()
+    {
+        if (totalBatteries > 0)
+        {
+            totalBatteries -= 1;
+            myLight.intensity += 12;
+        }
     }
 }
