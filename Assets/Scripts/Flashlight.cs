@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Flashlight : MonoBehaviour
 {
@@ -8,12 +9,17 @@ public class Flashlight : MonoBehaviour
     public KeyCode flashlightToggleKey = KeyCode.F;
     public float batteryLifeInSeconds = 5f;
 
-    public float totalBatteries;
+    public int totalBatteries;
 
     private float batteryLife;
     public bool isActive;
 
     public Light myLight;
+
+    public Slider flashlightbar;
+
+    public Text text;
+
 
 
 
@@ -23,6 +29,8 @@ public class Flashlight : MonoBehaviour
 
         myLight = GetComponent<Light>();
         batteryLife = myLight.intensity;
+        flashlightbar.value = myLight.intensity;
+        text = GetComponent<Text>();
 
     }
 
@@ -38,6 +46,7 @@ public class Flashlight : MonoBehaviour
         {
             myLight.enabled = true;
             myLight.intensity -= 0.1f;
+            flashlightbar.value = myLight.intensity;
             if (myLight.intensity <= 0)
             {
                 isActive = !isActive;
@@ -51,11 +60,13 @@ public class Flashlight : MonoBehaviour
         }
 
 
+
     }
 
     public void Collected(int _collected)
     {
         totalBatteries += _collected;
+        BatteryManager.battery += _collected;
     }
 
     public void AddBatteryLife()
@@ -63,6 +74,7 @@ public class Flashlight : MonoBehaviour
         if (totalBatteries > 0)
         {
             totalBatteries -= 1;
+            BatteryManager.battery -= 1;
             myLight.intensity += 12;
         }
     }
