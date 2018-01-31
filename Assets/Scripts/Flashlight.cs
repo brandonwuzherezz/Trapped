@@ -37,14 +37,13 @@ public class Flashlight : MonoBehaviour
         {
             isActive = !isActive;
             //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-          /*  if (Input.GetMouseButtonDown(0))
-            {
-                Vector3 target = new Vector3(0, 0, Camera.main.ScreenToWorldPoint(Input.mousePosition).z);
+          
+               /* Vector3 target = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, 0, Camera.main.ScreenToWorldPoint(Input.mousePosition).z);
                 Vector3 targetDir = target - transform.position;
                 float step = speed * Time.deltaTime;
-                Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
-                transform.rotation = Quaternion.LookRotation(newDir);
-            }*/
+                Vector3 newDir = target - targetDir; //Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
+                Quaternion rotation = Quaternion.LookRotation(newDir);
+                transform.rotation = rotation;*/
         }
         if (isActive)
         {
@@ -56,9 +55,26 @@ public class Flashlight : MonoBehaviour
             /*var pos = Camera.main.WorldToScreenPoint(transform.position);
             var dir = Input.mousePosition - pos;
             var angle = Mathf.Atan2(dir.z, dir.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0); //Quaternion.AngleAxis(angle, Vector3.forward);*/
-            //transform.Rotate(new Vector3(0, 0, 20) * speed);
-            
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);*/
+            //transform.Rotate(new Vector3(0, 0, 200) * speed);
+
+            /*var pos = Input.mousePosition;
+            var worldpos = Camera.main.ScreenToWorldPoint(new Vector3(pos.x, pos.y, pos.y));
+            // Debug.Log(pos);
+            Vector3 target = new Vector3(pos.x, pos.y, pos.y);
+            Vector3 targetDir = target - transform.position;
+            //float step = speed * Time.deltaTime;
+            Vector3 newDir = target - targetDir; //Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
+            //Debug.Log(newDir);
+            Quaternion rotation = Quaternion.LookRotation(newDir);
+            transform.rotation = rotation;*/
+
+            Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.z, 10);
+            Vector3 lookPos = Camera.main.ScreenToWorldPoint(mousePos);
+            lookPos = lookPos - transform.position;
+            float angle = Mathf.Atan2(lookPos.z, lookPos.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
             //mousePosition = camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - camera.transform.position.z));
             //rigidbody.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2((mousePosition.y - transform.position.y), (mousePosition.x - transform.position.x)) * Mathf.Rad2Deg - 90);
             if (myLight.intensity <= 0)
