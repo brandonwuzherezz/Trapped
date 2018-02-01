@@ -32,7 +32,6 @@ public class Flashlight : MonoBehaviour
         myLight = GetComponent<Light>();
         batteryLife = myLight.intensity;
         flashlightbar.value = maxIntensity;
-        print(flashlightbar.value);
         text = GetComponent<Text>();
 
     }
@@ -52,7 +51,8 @@ public class Flashlight : MonoBehaviour
             flashlightbar.value = myLight.intensity / maxIntensity;
             if (myLight.intensity <= 0)
             {
-                
+                isActive = !isActive;
+                myLight.enabled = false;
                 AddBatteryLife();
             }
 
@@ -78,9 +78,9 @@ public class Flashlight : MonoBehaviour
         {
             totalBatteries -= 1;
             BatteryManager.battery -= 1;
-            myLight.intensity += 12;
+            myLight.intensity += maxIntensity;
             flashlightbar.value = maxIntensity;
-            isActive = !isActive;
+            
         }
     }
 }
