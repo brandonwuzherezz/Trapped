@@ -72,12 +72,12 @@ public class Flashlight : MonoBehaviour
             transform.rotation = rotation;*/
 
             Vector3 mousePos = new Vector3(Input.mousePosition.x, 0, Input.mousePosition.y); //mouse position
-            Vector3 lookPos = Camera.main.ScreenToWorldPoint(mousePos); // convert to position in the world
-            lookPos = lookPos - transform.position; // offset by the position of flashlight
-            float angle = Mathf.Atan2(mousePos.x, mousePos.y) * Mathf.Rad2Deg; // arctan b/w x and y
-            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up); //rotate based on angle and axis(forward = z and up = y)
-            transform.rotation = rotation;
-
+            //Vector3 lookPos = Camera.main.ScreenToWorldPoint(mousePos); // convert to position in the world
+            mousePos = mousePos - transform.position; // offset by the position of flashlight
+            float angle = Mathf.Atan2(mousePos.x, mousePos.z) * Mathf.Rad2Deg; // arctan b/w x and y
+            transform.localRotation = Quaternion.AngleAxis(angle, Vector3.up); //rotate based on angle and axis(forward = z and up = y)
+            //transform.rotation = rotation;
+            Debug.Log(mousePos);
             //mousePosition = camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - camera.transform.position.z));
             //rigidbody.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2((mousePosition.y - transform.position.y), (mousePosition.x - transform.position.x)) * Mathf.Rad2Deg - 90);
             if (myLight.intensity <= 0)
