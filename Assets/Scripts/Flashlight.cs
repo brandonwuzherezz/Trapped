@@ -51,7 +51,6 @@ public class Flashlight : MonoBehaviour
             flashlightbar.value = myLight.intensity / maxIntensity;
             if (myLight.intensity <= 0)
             {
-                isActive = !isActive;
                 myLight.enabled = false;
                 AddBatteryLife();
             }
@@ -80,7 +79,9 @@ public class Flashlight : MonoBehaviour
             BatteryManager.battery -= 1;
             myLight.intensity += maxIntensity;
             flashlightbar.value = maxIntensity;
+            isActive = !isActive;
             
         }
+
     }
 }
