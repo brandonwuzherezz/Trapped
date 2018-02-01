@@ -58,22 +58,25 @@ public class Flashlight : MonoBehaviour
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);*/
             //transform.Rotate(new Vector3(0, 0, 200) * speed);
 
-            /*var pos = Input.mousePosition;
-            var worldpos = Camera.main.ScreenToWorldPoint(new Vector3(pos.x, pos.y, pos.y));
+            //var pos = Input.mousePosition;
+            //var worldpos = Camera.main.ScreenToWorldPoint(new Vector3(pos.x, pos.y, pos.y));
             // Debug.Log(pos);
-            Vector3 target = new Vector3(pos.x, pos.y, pos.y);
-            Vector3 targetDir = target - transform.position;
+            //Vector3 target = new Vector3(pos.x, pos.y, pos.y);
+            /*Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.z, 10);
+            Vector3 lookPos = Camera.main.ScreenToWorldPoint(mousePos);
+            Vector3 targetDir = lookPos - transform.position;
             //float step = speed * Time.deltaTime;
-            Vector3 newDir = target - targetDir; //Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
+            Vector3 newDir = lookPos - targetDir; //Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
             //Debug.Log(newDir);
             Quaternion rotation = Quaternion.LookRotation(newDir);
             transform.rotation = rotation;*/
 
-            Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.z, 10);
-            Vector3 lookPos = Camera.main.ScreenToWorldPoint(mousePos);
-            lookPos = lookPos - transform.position;
-            float angle = Mathf.Atan2(lookPos.z, lookPos.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            Vector3 mousePos = new Vector3(Input.mousePosition.x, 0, Input.mousePosition.y); //mouse position
+            Vector3 lookPos = Camera.main.ScreenToWorldPoint(mousePos); // convert to position in the world
+            lookPos = lookPos - transform.position; // offset by the position of flashlight
+            float angle = Mathf.Atan2(mousePos.x, mousePos.y) * Mathf.Rad2Deg; // arctan b/w x and y
+            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up); //rotate based on angle and axis(forward = z and up = y)
+            transform.rotation = rotation;
 
             //mousePosition = camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - camera.transform.position.z));
             //rigidbody.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2((mousePosition.y - transform.position.y), (mousePosition.x - transform.position.x)) * Mathf.Rad2Deg - 90);
