@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Battery
   - Flashlight
+  - B_SoundFX
+  - S_SoundFX
+  - W_soundFX
   layers:
   - Default
   - TransparentFX

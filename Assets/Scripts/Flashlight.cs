@@ -15,7 +15,7 @@ public class Flashlight : MonoBehaviour
 
     public Light myLight;
 
-
+    AudioSource audioSource;
 
     // Use this for initialization
     void Start()
@@ -23,7 +23,7 @@ public class Flashlight : MonoBehaviour
 
         myLight = GetComponent<Light>();
         batteryLife = myLight.intensity;
-
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -33,9 +33,14 @@ public class Flashlight : MonoBehaviour
         if (Input.GetKeyDown(flashlightToggleKey))
         {
             isActive = !isActive;
+            if ( myLight.intensity >0)
+            {
+                audioSource.Play();
+            }
         }
         if (isActive)
         {
+            
             myLight.enabled = true;
             myLight.intensity -= 0.1f;
             if (myLight.intensity <= 0)
