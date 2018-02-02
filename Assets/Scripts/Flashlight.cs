@@ -64,7 +64,7 @@ public class Flashlight : MonoBehaviour
         {
             
             myLight.enabled = true;
-            myLight.intensity -= 0.1f;
+            myLight.intensity -= 0.025f;
 
             flashlightbar.value = myLight.intensity / maxIntensity;
 
