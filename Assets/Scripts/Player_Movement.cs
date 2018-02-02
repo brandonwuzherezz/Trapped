@@ -8,20 +8,24 @@ public class Player_Movement : MonoBehaviour
     public float maxSpeed = 4.0f;
     bool facingRight = false;
     int State = 0;
+    AudioSource audioSource;
 
     Animator anim;
     Rigidbody RB;
     void Start()
     {
+        audioSource = GameObject.FindGameObjectWithTag("W_soundFX").GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         RB = GetComponent<Rigidbody>();
     }
     void FixedUpdate()
     {
         float move = Input.GetAxisRaw("Horizontal");
-
-        if(Input.GetKey("a"))
+        if (Input.GetKey("a"))
         {
+            if (!audioSource.isPlaying) {
+                audioSource.Play();
+           }
             State = 1;
             //anim.SetInteger("State", State);
             transform.position += transform.right * Time.deltaTime * maxSpeed;
@@ -30,6 +34,10 @@ public class Player_Movement : MonoBehaviour
         }
         else if (Input.GetKey("d"))
         {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
             State = 1;
             //anim.SetInteger("State", State);
             transform.position -= transform.right * Time.deltaTime * maxSpeed;
@@ -37,6 +45,10 @@ public class Player_Movement : MonoBehaviour
         }       
         else if (Input.GetKey("w"))
         {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
             State = 2;
             anim.SetInteger("State", State);
             transform.position -= transform.forward * Time.deltaTime * maxSpeed;
@@ -47,6 +59,10 @@ public class Player_Movement : MonoBehaviour
         }
         else if (Input.GetKey("s"))
         {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
             State = 3;
             anim.SetInteger("State", State);
             transform.position += transform.forward * Time.deltaTime * maxSpeed;
@@ -56,6 +72,7 @@ public class Player_Movement : MonoBehaviour
         }
         if(Input.anyKey == false && anim != null)
         {
+            audioSource.Stop();
             State = 0;
             anim.SetInteger("State", State);
         }

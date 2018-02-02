@@ -15,10 +15,13 @@ public class Flashlight : MonoBehaviour
 
     public Light myLight;
 
+
     //public Camera camera;
     //private mousePosition;
-     public float speed;
     //private Camera myCamera;
+
+    AudioSource audioSource;
+
 
     // Use this for initialization
     void Start()
@@ -26,7 +29,7 @@ public class Flashlight : MonoBehaviour
 
         myLight = GetComponent<Light>();
         batteryLife = myLight.intensity;
-
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -36,17 +39,16 @@ public class Flashlight : MonoBehaviour
         if (Input.GetKeyDown(flashlightToggleKey))
         {
             isActive = !isActive;
-            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-          
-               /* Vector3 target = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, 0, Camera.main.ScreenToWorldPoint(Input.mousePosition).z);
-                Vector3 targetDir = target - transform.position;
-                float step = speed * Time.deltaTime;
-                Vector3 newDir = target - targetDir; //Vector3.RotateTowards(transform.forward, targetDir, step, 0.0F);
-                Quaternion rotation = Quaternion.LookRotation(newDir);
-                transform.rotation = rotation;*/
+
+            if ( myLight.intensity >0)
+            {
+                audioSource.Play();
+            }
+
         }
         if (isActive)
         {
+            
             myLight.enabled = true;
             myLight.intensity -= 0.1f;
 
