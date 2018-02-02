@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Flashlight : MonoBehaviour
 {
@@ -8,12 +9,19 @@ public class Flashlight : MonoBehaviour
     public KeyCode flashlightToggleKey = KeyCode.F;
     public float batteryLifeInSeconds = 5f;
 
-    public float totalBatteries;
+    public float maxIntensity = 12f;
+
+    public int totalBatteries;
 
     private float batteryLife;
     public bool isActive;
 
     public Light myLight;
+
+    public Slider flashlightbar;
+
+    public Text text;
+
 
 
     //public Camera camera;
@@ -29,7 +37,13 @@ public class Flashlight : MonoBehaviour
 
         myLight = GetComponent<Light>();
         batteryLife = myLight.intensity;
+
+        flashlightbar.value = maxIntensity;
+        text = GetComponent<Text>();
+
+
         audioSource = GetComponent<AudioSource>();
+
     }
 
     // Update is called once per frame
@@ -51,6 +65,9 @@ public class Flashlight : MonoBehaviour
             
             myLight.enabled = true;
             myLight.intensity -= 0.1f;
+
+            flashlightbar.value = myLight.intensity / maxIntensity;
+
 
             // transform.rotation = myCamera.ScreenToWorldPoint(Vector3(Input.mousePosition.x, /*Input.mousePosition.y*/0, Input.mousePosition.y));
             //transform.rotation = 
@@ -82,9 +99,10 @@ public class Flashlight : MonoBehaviour
             Debug.Log(mousePos);
             //mousePosition = camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z - camera.transform.position.z));
             //rigidbody.transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2((mousePosition.y - transform.position.y), (mousePosition.x - transform.position.x)) * Mathf.Rad2Deg - 90);
+
             if (myLight.intensity <= 0)
             {
-                isActive = !isActive;
+                myLight.enabled = false;
                 AddBatteryLife();
             }
 
@@ -95,11 +113,13 @@ public class Flashlight : MonoBehaviour
         }
 
 
+
     }
 
     public void Collected(int _collected)
     {
         totalBatteries += _collected;
+        BatteryManager.battery += _collected;
     }
 
     public void AddBatteryLife()
@@ -107,7 +127,12 @@ public class Flashlight : MonoBehaviour
         if (totalBatteries > 0)
         {
             totalBatteries -= 1;
-            myLight.intensity += 12;
+            BatteryManager.battery -= 1;
+            myLight.intensity += maxIntensity;
+            flashlightbar.value = maxIntensity;
+            isActive = !isActive;
+            
         }
+
     }
 }
