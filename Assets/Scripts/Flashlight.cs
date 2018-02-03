@@ -22,7 +22,9 @@ public class Flashlight : MonoBehaviour
 
     public Text text;
 
-    public float speed = 5.0f;
+
+    public float speed = 6f;
+
 
     AudioSource audioSource;
 
@@ -46,7 +48,7 @@ public class Flashlight : MonoBehaviour
         {
             isActive = !isActive;
 
-            if ( myLight.intensity >0)
+            if (myLight.intensity > 0)
             {
                 audioSource.Play();
             }
@@ -54,7 +56,7 @@ public class Flashlight : MonoBehaviour
         }
         if (isActive)
         {
-            
+
             myLight.enabled = true;
             myLight.intensity -= 0.1f;
 
@@ -63,11 +65,13 @@ public class Flashlight : MonoBehaviour
             Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.y); //mouse position
             //Vector3 lookPos = Camera.main.ScreenToWorldPoint(mousePos); // convert to position in the world
             //lookPos = lookPos - transform.position; // offset by the position of flashlight
-            float angle = Mathf.Atan2(mousePos.x - 477.0f, mousePos.z - 371.0f) * Mathf.Rad2Deg; // arctan b/w x and y            
+
+            float angle = Mathf.Atan2(mousePos.x - 959.0f, mousePos.z - 573.0f) * Mathf.Rad2Deg; // arctan b/w x and y            
             Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up); //rotate based on angle and axis(forward = z and up = y)      
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed * Time.deltaTime);
-            //Debug.Log("lookPos: " + lookPos);
-            
+            transform.rotation = Quaternion.Lerp(transform.rotation, rotation, speed * Time.deltaTime);
+            Debug.Log("lookPos: " + mousePos);
+
+
             if (myLight.intensity <= 0)
             {
                 myLight.enabled = false;
@@ -99,7 +103,7 @@ public class Flashlight : MonoBehaviour
             myLight.intensity += maxIntensity;
             flashlightbar.value = maxIntensity;
             isActive = !isActive;
-            
+
         }
 
     }
