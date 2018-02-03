@@ -22,7 +22,7 @@ public class Flashlight : MonoBehaviour
 
     public Text text;
 
-    public float speed = 2.5f;
+    public float speed = 6f;
 
     AudioSource audioSource;
 
